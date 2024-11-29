@@ -1,0 +1,1 @@
+# ubytovanivojtechov.cz
