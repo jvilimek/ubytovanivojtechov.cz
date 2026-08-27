@@ -1,0 +1,43 @@
+[
+  {
+    "file": "living-room.jpg",
+    "alt": "Obývací pokoj s jídelnou a krbem",
+    "role": "living"
+  },
+  {
+    "file": "bedroom-fireplace.jpg",
+    "alt": "Ložnice s krbem"
+  },
+  {
+    "file": "bedroom-1.jpg",
+    "alt": "Ložnice s manželskou postelí"
+  },
+  {
+    "file": "bedroom-2.jpg",
+    "alt": "Druhá ložnice apartmánu"
+  },
+  {
+    "file": "kitchen.jpg",
+    "alt": "Plně vybavená kuchyň s jídelnou"
+  },
+  {
+    "file": "bathroom.jpg",
+    "alt": "Koupelna s dřevěnou skříňkou"
+  },
+  {
+    "file": "shower.jpg",
+    "alt": "Sprchový kout"
+  },
+  {
+    "file": "hero.jpg",
+    "alt": "Úvodní obrázek",
+    "role": "hero",
+    "gallery": false
+  },
+  {
+    "file": "surroundings.jpg",
+    "alt": "Krajina Drahanské vrchoviny v okolí statku",
+    "role": "surroundings",
+    "gallery": false
+  }
+]

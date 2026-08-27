@@ -1,0 +1,65 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Start dev server
+        run: |
+          bun run dev --port 8080 --host 127.0.0.1 --strictPort > /tmp/dev-server.log 2>&1 &
+          for i in $(seq 1 60); do
+            curl -sf -o /dev/null http://localhost:8080/ && exit 0
+            sleep 2
+          done
+          echo "Dev server nenaběhl:"; cat /tmp/dev-server.log; exit 1
+
+      - name: Export static site
+        run: bun run export:static
+        env:
+          EXPORT_ORIGIN: http://127.0.0.1:8080
+
+      - name: Set custom domain (CNAME)
+        run: cat CNAME > docs/CNAME
+
+      - name: Stop dev server
+        if: always()
+        run: pkill -f "vite" || true
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

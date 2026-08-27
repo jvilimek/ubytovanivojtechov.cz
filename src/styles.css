@@ -1,0 +1,153 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system — Dvůr u Špraňku
+ * Warm Moravian farmstead: oat/paper backgrounds, deep forest green,
+ * sage accents, clay highlight. All colors in oklch.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-oat: var(--oat);
+  --color-paper: var(--paper);
+  --color-forest: var(--forest);
+  --color-sage: var(--sage);
+  --color-clay: var(--clay);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  --oat: oklch(0.978 0.008 90);
+  --paper: oklch(0.955 0.011 85);
+  --forest: oklch(0.253 0.024 158);
+  --sage: oklch(0.62 0.028 140);
+  --clay: oklch(0.7 0.109 62);
+
+  --background: var(--oat);
+  --foreground: var(--forest);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--forest);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--forest);
+  --primary: var(--forest);
+  --primary-foreground: var(--oat);
+  --secondary: var(--paper);
+  --secondary-foreground: var(--forest);
+  --muted: var(--paper);
+  --muted-foreground: oklch(0.52 0.02 150);
+  --accent: var(--clay);
+  --accent-foreground: var(--oat);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.253 0.024 158 / 10%);
+  --input: oklch(0.253 0.024 158 / 14%);
+  --ring: var(--sage);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: oklch(0.62 0.028 140 / 25%);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slow-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@utility reveal {
+  animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@utility slow-zoom {
+  animation: slow-zoom 2.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Hero video / poster visibility
+ * - desktop + motion allowed: show video, hide poster
+ * - mobile or reduced motion: show poster, hide video
+ */
+.hero-video {
+  display: none;
+}
+
+.hero-poster {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-video {
+    display: block;
+  }
+
+  .hero-poster {
+    display: none;
+  }
+}
+
+
