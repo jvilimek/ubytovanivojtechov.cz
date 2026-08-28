@@ -528,7 +528,7 @@ const en: SiteContent = {
     title: "We support Ukraine in its fight for freedom",
     paragraphs: [
       "As the hosts of Dvůr u Špraňku we unequivocally condemn the Russian military aggression against Ukraine and the suffering it brings to the Ukrainian people. Truth and human dignity are on the side of Ukrainians defending their homeland, their freedom and a peaceful future.",
-      "We believe every kind of help matters — financial, material or moral. That is why we support verified organisations and fundraisers that help directly on the ground. If you can, contribute to Ukraine's defence, to helping its people and to rebuilding destroyed regions.",
+      "We believe every kind of help matters — financial, material, or moral. That is why we support verified organisations and fundraisers that provide direct assistance on the ground. If you can, contribute to Ukraine's defence, support its people, and help rebuild destroyed regions.",
     ],
     helpTitle: "Where you can help",
     thanks: "Thank you for standing on the side of freedom. Слава Україні! Героям слава!",
