@@ -2,7 +2,21 @@ import { useEffect, useState } from "react";
 
 export type GalleryPhoto = { url: string; alt: string };
 
-export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
+export type GalleryLabels = { zoom: string; close: string; dialog: string };
+
+const DEFAULT_LABELS: GalleryLabels = {
+  zoom: "Zvětšit fotografii",
+  close: "Zavřít",
+  dialog: "Fotogalerie",
+};
+
+export function Gallery({
+  photos,
+  labels = DEFAULT_LABELS,
+}: {
+  photos: GalleryPhoto[];
+  labels?: GalleryLabels;
+}) {
   const [open, setOpen] = useState<number | null>(null);
 
   useEffect(() => {
@@ -19,7 +33,12 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
 
   return (
     <>
-      <div data-lightbox className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+      <div
+        data-lightbox
+        data-close-label={labels.close}
+        data-dialog-label={labels.dialog}
+        className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4"
+      >
         {photos.map((photo, i) => (
           <button
             key={photo.url}
@@ -28,7 +47,7 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
             className={`group relative overflow-hidden rounded-xl ring-1 ring-border ${
               i === 0 ? "col-span-2 row-span-2 aspect-square md:aspect-[4/3]" : "aspect-[4/3]"
             }`}
-            aria-label={`Zvětšit fotografii: ${photo.alt}`}
+            aria-label={`${labels.zoom}: ${photo.alt}`}
           >
             <img
               src={photo.url}
@@ -44,7 +63,7 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="Fotogalerie"
+          aria-label={labels.dialog}
           className="fixed inset-0 z-100 flex items-center justify-center bg-forest/95 p-4 backdrop-blur-sm"
           onClick={() => setOpen(null)}
         >
@@ -66,7 +85,7 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
             onClick={() => setOpen(null)}
             className="absolute top-6 right-6 rounded-full bg-oat/10 px-4 py-2 text-sm text-oat ring-1 ring-oat/20 transition-colors hover:bg-oat/20"
           >
-            Zavřít
+            {labels.close}
           </button>
         </div>
       )}
