@@ -20,9 +20,19 @@ execSync(
 );
 
 const pages = [
-  { route: "/", file: "index.html", depth: 0, isFallback: true },
-  { route: "/ukrajina", file: "ukrajina/index.html", depth: 1, isFallback: false },
+  { route: "/", file: "index.html", depth: 0, lang: "cs", isFallback: true },
+  { route: "/ukrajina", file: "ukrajina/index.html", depth: 1, lang: "cs", isFallback: false },
+  { route: "/en", file: "en/index.html", depth: 1, lang: "en", isFallback: false },
+  { route: "/en/ukrajina", file: "en/ukrajina/index.html", depth: 2, lang: "en", isFallback: false },
 ];
+
+// Absolutní cesty rout -> relativní cíle ve statickém výstupu
+const routeTargets = {
+  "/": "",
+  "/ukrajina": "ukrajina/",
+  "/en": "en/",
+  "/en/ukrajina": "en/ukrajina/",
+};
 
 const relPrefix = (depth) => (depth === 0 ? "" : "../".repeat(depth));
 const stripLeadingSlash = (url) => url.replace(/^\//, "");
@@ -50,7 +60,7 @@ async function copyAsset(url) {
   }
 }
 
-async function exportPage({ route, file, depth, isFallback }) {
+async function exportPage({ route, file, depth, lang, isFallback }) {
   let html = await fetch(`${ORIGIN}${route}`).then((r) => r.text());
 
   // 2) Lokální assety – obrázky a videa primárně z repozitáře (public/), jinak z dev serveru
@@ -71,10 +81,16 @@ async function exportPage({ route, file, depth, isFallback }) {
     .replace(/<link[^>]*(?:\/src\/styles\.css|@tanstack-start\/styles\.css|modulepreload)[^>]*>/g, "")
     .replace(/ data-precedence="[^"]*"/g, "")
     .replace(/<!--\$?-->|<!--\/\$-->|<!--\$!-->/g, "")
-    .replace('<html lang="en"', '<html lang="cs"')
-    .replace(/href="\/favicon\.svg"/g, `href="${relPrefix(depth)}favicon.svg"`)
-    .replace(/href="\/"/g, `href="${relPrefix(depth) || "./"}"`)
-    .replace(/href="\/ukrajina"/g, `href="${depth === 0 ? "ukrajina/" : "./"}"`);
+    .replace(/<html lang="[a-z-]+"/, `<html lang="${lang}"`)
+    .replace(/href="\/favicon\.svg"/g, `href="${relPrefix(depth)}favicon.svg"`);
+
+  // Odkazy na interní routy -> relativní cesty (delší cesty první)
+  for (const [routePath, target] of Object.entries(routeTargets).sort(
+    (a, b) => b[0].length - a[0].length,
+  )) {
+    const rel = relPrefix(depth) + target;
+    html = html.replaceAll(`href="${routePath}"`, `href="${rel || "./"}"`);
+  }
 
   for (const url of assetUrls) {
     html = html.replaceAll(url, relPrefix(depth) + stripLeadingSlash(url));
@@ -110,7 +126,9 @@ async function exportPage({ route, file, depth, isFallback }) {
 
 // 4) Lightbox v čistém JS (nahrazuje React chování galerie)
 const gallery = `document.addEventListener("DOMContentLoaded", () => {
-  const buttons = [...document.querySelectorAll("[data-lightbox] button")];
+  const grid = document.querySelector("[data-lightbox]");
+  if (!grid) return;
+  const buttons = [...grid.querySelectorAll("button")];
   const photos = buttons.map((b) => {
     const img = b.querySelector("img");
     return { src: img.getAttribute("src"), alt: img.getAttribute("alt") || "" };
@@ -120,10 +138,10 @@ const gallery = `document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.createElement("div");
   overlay.setAttribute("role", "dialog");
   overlay.setAttribute("aria-modal", "true");
-  overlay.setAttribute("aria-label", "Fotogalerie");
+  overlay.setAttribute("aria-label", grid.dataset.dialogLabel || "Fotogalerie");
   overlay.hidden = true;
   overlay.className = "fixed inset-0 z-100 flex items-center justify-center bg-forest/95 p-4 backdrop-blur-sm";
-  overlay.innerHTML = \`<figure class="max-h-full max-w-5xl"><img alt="" class="max-h-[80vh] w-auto rounded-xl object-contain"/><figcaption class="mt-4 flex items-center justify-between text-sm text-oat/70"><span data-caption></span><span data-count class="tabular-nums"></span></figcaption></figure><button type="button" data-close class="absolute top-6 right-6 rounded-full bg-oat/10 px-4 py-2 text-sm text-oat ring-1 ring-oat/20 transition-colors hover:bg-oat/20">Zavřít</button>\`;
+  overlay.innerHTML = \`<figure class="max-h-full max-w-5xl"><img alt="" class="max-h-[80vh] w-auto rounded-xl object-contain"/><figcaption class="mt-4 flex items-center justify-between text-sm text-oat/70"><span data-caption></span><span data-count class="tabular-nums"></span></figcaption></figure><button type="button" data-close class="absolute top-6 right-6 rounded-full bg-oat/10 px-4 py-2 text-sm text-oat ring-1 ring-oat/20 transition-colors hover:bg-oat/20">${closeLabel}</button>\`;
   document.body.appendChild(overlay);
   const img = overlay.querySelector("img");
   const caption = overlay.querySelector("[data-caption]");
