@@ -37,8 +37,16 @@ npm run dev            # v jednom terminálu (localhost:8080)
 npm run export:static  # vygeneruje /docs
 ```
 
-Ve složce `docs/` je `index.html`, `assets/styles.css`, `assets/gallery.js`, `images/` a `.nojekyll`.
+Ve složce `docs/` je `index.html`, `ukrajina/`, anglická verze `en/` a `en/ukrajina/`,
+dále `assets/styles.css`, `assets/gallery.js`, `images/` a `.nojekyll`.
 Složka `docs/` se generuje jen lokálně (je v `.gitignore`) — na produkci ji vytváří GitHub Action.
+
+## Jazyky
+
+Texty obou jazyků jsou na jednom místě v `src/content/site.tsx` (`content.cs`, `content.en`),
+stránky je jen renderují (`src/components/site/HomePage.tsx`, `UkrainePage.tsx`).
+Routy: `/` a `/ukrajina` (česky), `/en` a `/en/ukrajina` (anglicky), přepínač jazyka je v hlavičce.
+
 
 Automaticky to dělá i GitHub Action `.github/workflows/deploy-pages.yml`:
 po pushi do `main` vygeneruje statický web a nasadí ho na GitHub Pages
