@@ -64,8 +64,8 @@ if git format-patch "${LAST_COMMIT}..${REMOTE_NAME}/${SOURCE_BRANCH}" --stdout |
     echo "📝 Soubor $COMMIT_FILE byl aktualizován na nový commit: $NEW_LAST_COMMIT"
     
     # Automaticky přidáme změnu souboru s hashem do posledního commitu nebo vytvoříme nový
-    git add "$COMMIT_FILE"
-    git commit --amend --no-edit 2>/dev/null || git commit -m "chore: update sync checkpoint"
+    #git add "$COMMIT_FILE"
+    #git commit --amend --no-edit 2>/dev/null || git commit -m "chore: update sync checkpoint"
     
     echo "🎉 Synchronizace dokončena. Nyní můžete provést 'git push' do vašeho aktuálního repozitáře."
 else
