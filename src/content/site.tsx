@@ -310,7 +310,7 @@ const cs: SiteContent = {
       { label: "Doprava", value: "Autem, autobus 50 m, vlak Konice 9 km" },
     ],
   },
-  ukraineFooter: "Podporujeme Ukrajinu v jejím boji za svobodu:",
+  ukraineFooter: "Podporujeme Ukrajinu v jejím boji za svobodu",
   donations: DONATIONS_CS,
   ukrainePage: {
     metaTitle: "Podporujeme Ukrajinu v jejím boji za svobodu — Dvůr u Špraňku",
@@ -518,7 +518,7 @@ const en: SiteContent = {
       { label: "Getting here", value: "By car, bus stop 50 m, train Konice 9 km" },
     ],
   },
-  ukraineFooter: "We support Ukraine in its fight for freedom:",
+  ukraineFooter: "We support Ukraine in its fight for freedom",
   donations: DONATIONS_EN,
   ukrainePage: {
     metaTitle: "We support Ukraine in its fight for freedom — Dvůr u Špraňku",
