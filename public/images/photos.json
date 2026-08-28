@@ -2,41 +2,50 @@
   {
     "file": "living-room.jpg",
     "alt": "Obývací pokoj s jídelnou a krbem",
+    "altEn": "Living room with dining area and fireplace",
     "role": "living"
   },
   {
     "file": "bedroom-fireplace.jpg",
-    "alt": "Ložnice s krbem"
+    "alt": "Ložnice s krbem",
+    "altEn": "Bedroom with a fireplace"
   },
   {
     "file": "bedroom-1.jpg",
-    "alt": "Ložnice s manželskou postelí"
+    "alt": "Ložnice s manželskou postelí",
+    "altEn": "Bedroom with a double bed"
   },
   {
     "file": "bedroom-2.jpg",
-    "alt": "Druhá ložnice apartmánu"
+    "alt": "Druhá ložnice apartmánu",
+    "altEn": "Second bedroom of the apartment"
   },
   {
     "file": "kitchen.jpg",
-    "alt": "Plně vybavená kuchyň s jídelnou"
+    "alt": "Plně vybavená kuchyň s jídelnou",
+    "altEn": "Fully equipped kitchen with dining area"
   },
   {
     "file": "bathroom.jpg",
-    "alt": "Koupelna s dřevěnou skříňkou"
+    "alt": "Koupelna s dřevěnou skříňkou",
+    "altEn": "Bathroom with a wooden cabinet"
   },
   {
     "file": "shower.jpg",
-    "alt": "Sprchový kout"
+    "alt": "Sprchový kout",
+    "altEn": "Shower cabin"
   },
   {
     "file": "hero.jpg",
     "alt": "Úvodní obrázek",
+    "altEn": "Cover photo",
     "role": "hero",
     "gallery": false
   },
   {
     "file": "surroundings.jpg",
     "alt": "Krajina Drahanské vrchoviny v okolí statku",
+    "altEn": "Countryside around the farmstead",
     "role": "surroundings",
     "gallery": false
   }
