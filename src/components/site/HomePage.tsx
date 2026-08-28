@@ -118,14 +118,6 @@ export function HomePage({ lang }: { lang: Lang }) {
               {t.otherLang.code === "en" ? "EN" : "CZ"}
               <span className="sr-only"> — {t.otherLang.label}</span>
             </Link>
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full bg-forest px-6 py-2 text-sm font-medium text-oat ring-1 ring-forest transition-transform hover:bg-forest/90 active:scale-95"
-            >
-              {t.book}
-            </a>
           </div>
         </div>
       </nav>
