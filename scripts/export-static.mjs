@@ -108,6 +108,13 @@ async function exportPage({ route, file, depth, lang, isFallback }) {
     );
   }
 
+  if (html.includes("nav-toggle")) {
+    html = html.replace(
+      "</body>",
+      `<script src="${relPrefix(depth)}assets/menu.js" defer></script>\n</body>`,
+    );
+  }
+
   const outPath = path.join(OUT, file);
   await mkdir(path.dirname(outPath), { recursive: true });
   await writeFile(outPath, html);
@@ -180,5 +187,22 @@ for (const page of pages) {
 }
 
 await writeFile(path.join(OUT, "assets/gallery.js"), gallery);
+
+// 5) Mobilní menu v čistém JS (zavře se po kliku na odkaz nebo mimo menu)
+const menuScript = `document.addEventListener("click", (e) => {
+  const toggle = document.getElementById("nav-toggle");
+  if (!toggle || !toggle.checked) return;
+  const nav = toggle.closest("nav");
+  if (!nav) return;
+  const target = e.target instanceof Element ? e.target : null;
+  if (target && nav.contains(target)) {
+    if (target.closest("a")) toggle.checked = false;
+    return;
+  }
+  toggle.checked = false;
+});
+`;
+
+await writeFile(path.join(OUT, "assets/menu.js"), menuScript);
 
 console.log(`Hotovo: ${OUT} (${totalAssets} assetů)`);
