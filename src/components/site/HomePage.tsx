@@ -111,17 +111,17 @@ export function HomePage({ lang }: { lang: Lang }) {
       <nav className="fixed top-0 z-50 w-full border-b border-border bg-oat/85 backdrop-blur-md">
         <input type="checkbox" id="nav-toggle" className="peer sr-only" aria-label={t.menuLabel} />
         <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-6">
-          <a
-            href="#top"
-            className="flex items-center gap-3 text-sm font-semibold tracking-[0.18em] uppercase whitespace-nowrap"
-          >
-            <img
-              src="/images/logo.png"
-              alt="Logo Dvůr u Špraňku"
-              className="h-9 w-auto shrink-0"
-            />
-            <span className="hidden sm:inline">Dvůr u Špraňku</span>
-          </a>
+            <a
+              href="#top"
+              className="flex items-center gap-2 text-[0.68rem] font-semibold tracking-[0.12em] uppercase whitespace-nowrap sm:gap-3 sm:text-sm sm:tracking-[0.18em]"
+            >
+              <img
+                src="/images/logo.png"
+                alt="Logo Dvůr u Špraňku"
+                className="h-9 w-auto shrink-0"
+              />
+              <span>Dvůr u Špraňku</span>
+            </a>
           <div className="hidden gap-8 text-sm font-medium text-forest/70 lg:flex">
             {t.nav.map((link) => (
               <a key={link.href} href={link.href} className="transition-colors hover:text-forest">
