@@ -37,6 +37,7 @@ export type SiteContent = {
   nav: { href: string; label: string }[];
   book: string;
   bookStay: string;
+  menuLabel: string;
   bookBooking: string;
   hero: { eyebrow: string; title: string; text: string; alt: string };
   apartment: {
@@ -142,6 +143,7 @@ const cs: SiteContent = {
   ],
   book: "Rezervovat",
   bookStay: "Rezervovat pobyt",
+  menuLabel: "Menu",
   bookBooking: "Rezervovat přes Booking.com",
   hero: {
     eyebrow: "Vojtěchov u Hvozdu · Haná",
@@ -350,6 +352,7 @@ const en: SiteContent = {
   ],
   book: "Book now",
   bookStay: "Book your stay",
+  menuLabel: "Menu",
   bookBooking: "Book on Booking.com",
   hero: {
     eyebrow: "Vojtěchov · Moravia, Czechia",
