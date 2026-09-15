@@ -90,6 +90,7 @@ export function HomePage({ lang }: { lang: Lang }) {
   return (
     <div className="min-h-screen bg-oat text-forest">
       <nav className="fixed top-0 z-50 w-full border-b border-border bg-oat/85 backdrop-blur-md">
+        <input type="checkbox" id="nav-toggle" className="peer sr-only" aria-label={t.menuLabel} />
         <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-6">
           <a
             href="#top"
@@ -100,7 +101,7 @@ export function HomePage({ lang }: { lang: Lang }) {
               alt="Logo Dvůr u Špraňku"
               className="h-9 w-auto shrink-0"
             />
-            Dvůr u Špraňku
+            <span className="hidden sm:inline">Dvůr u Špraňku</span>
           </a>
           <div className="hidden gap-8 text-sm font-medium text-forest/70 lg:flex">
             {t.nav.map((link) => (
@@ -112,11 +113,48 @@ export function HomePage({ lang }: { lang: Lang }) {
           <div className="flex items-center gap-4">
             <Link
               to={t.otherLang.to}
-              className="text-xs font-semibold tracking-[0.14em] text-forest/60 uppercase transition-colors hover:text-forest"
+              className="hidden text-xs font-semibold tracking-[0.14em] text-forest/60 uppercase transition-colors hover:text-forest lg:inline"
               hrefLang={t.otherLang.code}
             >
               {t.otherLang.code === "en" ? "EN" : "CZ"}
               <span className="sr-only"> — {t.otherLang.label}</span>
+            </Link>
+            <label
+              htmlFor="nav-toggle"
+              className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg text-forest/70 transition-colors hover:text-forest lg:hidden"
+              title={t.menuLabel}
+            >
+              <span className="sr-only">{t.menuLabel}</span>
+              <svg
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.8}
+                stroke="currentColor"
+                className="h-6 w-6"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+              </svg>
+            </label>
+          </div>
+        </div>
+        <div className="hidden border-t border-border bg-oat/95 backdrop-blur-md peer-checked:block lg:peer-checked:hidden">
+          <div className="mx-auto flex max-w-screen-xl flex-col px-6 py-4">
+            {t.nav.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="border-b border-border/60 py-3 text-sm font-medium text-forest/80 transition-colors hover:text-forest"
+              >
+                {link.label}
+              </a>
+            ))}
+            <Link
+              to={t.otherLang.to}
+              hrefLang={t.otherLang.code}
+              className="py-3 text-xs font-semibold tracking-[0.14em] text-forest/60 uppercase transition-colors hover:text-forest"
+            >
+              {t.otherLang.code === "en" ? "EN — English" : "CZ — Čeština"}
             </Link>
           </div>
         </div>
