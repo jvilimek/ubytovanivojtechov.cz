@@ -179,7 +179,7 @@ export function HomePage({ lang }: { lang: Lang }) {
         </div>
       </nav>
 
-      <header id="top" className="relative flex h-[90vh] items-end overflow-hidden pb-24">
+      <header id="top" className="relative flex min-h-[90vh] items-end overflow-hidden pb-24 pt-28">
         <div className="absolute inset-0 z-0">
           <video
             className="hero-video h-full w-full object-cover"
