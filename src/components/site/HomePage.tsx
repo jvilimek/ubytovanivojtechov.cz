@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
@@ -86,6 +87,24 @@ const AMENITY_ORDER: AmenityId[] = [
 export function HomePage({ lang }: { lang: Lang }) {
   const t = content[lang];
   const galleryItems = localizedGalleryPhotos(lang);
+
+  // Zavření mobilního menu: klik na odkaz v menu nebo mimo menu
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      const toggle = document.getElementById("nav-toggle") as HTMLInputElement | null;
+      if (!toggle?.checked) return;
+      const nav = toggle.closest("nav");
+      if (!nav) return;
+      const target = e.target instanceof Element ? e.target : null;
+      if (target && nav.contains(target)) {
+        if (target.closest("a")) toggle.checked = false;
+        return;
+      }
+      toggle.checked = false;
+    };
+    document.addEventListener("click", handler);
+    return () => document.removeEventListener("click", handler);
+  }, []);
 
   return (
     <div className="min-h-screen bg-oat text-forest">
